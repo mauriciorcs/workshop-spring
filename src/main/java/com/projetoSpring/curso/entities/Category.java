@@ -3,7 +3,9 @@ package com.projetoSpring.curso.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_category")
@@ -15,6 +17,9 @@ public class Category implements Serializable {
     private Long id;
     private String nome;
 
+    @Transient
+    private Set<Product> products = new HashSet<>();
+
     public Category (Long id, String nome){
         super();
         this.id = id;
@@ -23,6 +28,10 @@ public class Category implements Serializable {
 
     public Category() {
 
+    }
+
+    public Set<Product> getProducts(){
+        return products;
     }
 
     public Long getId() {
@@ -53,4 +62,5 @@ public class Category implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }
