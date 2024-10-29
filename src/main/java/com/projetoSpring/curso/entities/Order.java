@@ -13,91 +13,91 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_order")
-public class Order implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@JsonFormat(shape  = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Instant moment;
-	
-	private Integer orderStatus;
-	
-	@ManyToOne
-	@JoinColumn(name = "client_id")
-	private User client;
+public class Order implements Serializable {
 
-	@OneToMany(mappedBy = "id.order")
-	private Set<OrderItem> items = new HashSet<>();
-	
-	public Order() {
-		
-	}
+    private static final long serialVersionUID = 1L;
 
-	public Order(Long id, Instant moment,OrderStatus orderStatus, User client) {
-		super();
-		this.id = id;
-		this.moment = moment;
-		setOrderStatus(orderStatus);
-		this.client = client;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public Long getId() {
-		return id;
-	}
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+    private Instant moment;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private Integer orderStatus;
 
-	public Instant getMoment() {
-		return moment;
-	}
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private User client;
 
-	public void setMoment(Instant moment) {
-		this.moment = moment;
-	}
-	
-	public OrderStatus getOrderStatus() {
-		return OrderStatus.valueof(orderStatus);
-	}
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
-	public void setOrderStatus(OrderStatus orderStatus) {
-		if(orderStatus != null)
-			this.orderStatus = orderStatus.getCode();
-	}
+    public Order() {
 
-	public User getClient() {
-		return client;
-	}
+    }
 
-	public void setClient(User client) {
-		this.client = client;
-	}
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
+        super();
+        this.id = id;
+        this.moment = moment;
+        setOrderStatus(orderStatus);
+        this.client = client;
+    }
 
-	public Set<OrderItem> getItems() {
-		return items;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Order other = (Order) obj;
-		return Objects.equals(id, other.id);
-	}
-	
+    public Instant getMoment() {
+        return moment;
+    }
+
+    public void setMoment(Instant moment) {
+        this.moment = moment;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valueof(orderStatus);
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        if (orderStatus != null)
+            this.orderStatus = orderStatus.getCode();
+    }
+
+    public User getClient() {
+        return client;
+    }
+
+    public void setClient(User client) {
+        this.client = client;
+    }
+
+    public Set<OrderItem> getItems() {
+        return items;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Order other = (Order) obj;
+        return Objects.equals(id, other.id);
+    }
+
 
 }
